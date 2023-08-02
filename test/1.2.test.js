@@ -9,15 +9,18 @@
 const chai = require('chai');
 const expect = chai.expect;
 const testGetDegreeProgress = require('../getDegreeProgress.js'); // Replace './getdegreeprogress.js' with the correct path to the file
+const testGetRegistrableCourses = require('../getRegistrableCourses.js');
 
 
-describe('Degree Progress Test for TestCase - 1.0', function () {
+describe('Degree Progress Test and Eligible Courses for TestCase:\n  1.2 - Student completed none of the required courses and some courses are offered', function () {
 
   const programmeId = 1;
   const file_path = '/workspaces/AdvisingAlgorithmsTesting/TestCase - 1.2.xlsx';
 
   // Call the testGetDegreeProgress function and capture its output
   const degreeProgress = testGetDegreeProgress(file_path, programmeId);
+
+  const eligibleCourses = testGetRegistrableCourses(file_path, programmeId);
 
   it('Should calculate completed courses correctly', function () {
 
@@ -56,6 +59,20 @@ describe('Degree Progress Test for TestCase - 1.0', function () {
     const expectedRemainingCredits = 93;
     expect(degreeProgress.remainingCredits).to.equal(expectedRemainingCredits);
 
+  });
+
+  it('Should calculate the correct courses a student can register for', function(){
+    
+    const expectedEligibleCourses = [
+      'COMP1600',
+      'COMP2601',
+      'COMP3601',
+      'FOUN1101',
+      'INFO1600',
+      'MATH1115'
+    ];
+    expect(eligibleCourses).to.deep.equal(expectedEligibleCourses);
+  
   });
 
 });
