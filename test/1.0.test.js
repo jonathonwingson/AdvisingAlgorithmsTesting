@@ -72,9 +72,10 @@ describe('Degree Progress Test for TestCase - 1.0.\n  Student completed all requ
   });
 
   it('Should calculate the correct courses a student can register for', function(){
-    const expectedEligibleCourses = [
-
-    ];
+    
+    const expectedEligibleCourses = [];
+    expect(eligibleCourses).to.deep.equal(expectedEligibleCourses);
+  
   });
 
 });
