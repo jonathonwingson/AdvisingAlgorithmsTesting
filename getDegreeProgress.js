@@ -34,7 +34,6 @@ let types = [];
 
 
 
-
 // =======================--FUNCTIONS--=======================
 
 
@@ -48,49 +47,7 @@ function cleanObject(obj) {
     return obj;
 }
 
-// returns the students degree progress(list of completed courses, total credits completed, remaining requirements and total credits remaining)
-function getDegreeProgress(programmeId, studentCourseCodes, programmeCourses, courses, programmeCreditRequirements) {
 
-    let totalCredits = 0;
-    let completedCourses = [];
-
-    let programmeCreditRequirement = programmeCreditRequirements.find((pcr) => pcr.programmeId === programmeId);
-    let creditRequirements = programmeCreditRequirement.creditRequirements;
-    for (let creditType in creditRequirements) {
-
-        let typeObj = types.find((type) => type.type === creditType);
-        let typeId = typeObj ? typeObj.typeId : null;
-
-        for (let i = 0; i < studentCourseCodes.length; i++) {
-            let course = courses.find((c) => c.courseCode === studentCourseCodes[i]);
-            let programmeCourse = programmeCourses.find((c) => c.courseCode === studentCourseCodes[i] && c.typeId === typeId);
-            if (creditRequirements[creditType] <= 0) {
-                break;
-            }
-            if (programmeCourse && !completedCourses.includes(programmeCourse.courseCode)) {
-                let credits = parseInt(course.credits);
-                completedCourses.push(course.courseCode);
-                creditRequirements[creditType] -= credits;
-                totalCredits = totalCredits + credits;
-            }
-        }
-
-    }
-
-    let remainingRequirements = [];
-    for (let type in creditRequirements) {
-        remainingRequirements.push({ type, remainingCredits: creditRequirements[type] });
-    }
-
-    let degreeProgress = {
-        remainingRequirements: remainingRequirements,
-        completedCourses: completedCourses,
-        totalCompletedCredits: totalCredits,
-        remainingCredits: programmeCreditRequirement.total - totalCredits
-    };
-
-    return degreeProgress;
-}
 
 function testGetDegreeProgress(file_path, programmeId) {
 
@@ -205,6 +162,7 @@ function testGetDegreeProgress(file_path, programmeId) {
 
 
 
+
     // =======================--CALL/OUTPUT GETDEGREEPROGRESS--=======================
     
 
@@ -220,6 +178,58 @@ function testGetDegreeProgress(file_path, programmeId) {
 
     return degreeProgress;
 
+}
+
+
+
+
+
+// returns the students degree progress(list of completed courses, total credits completed, remaining requirements and total credits remaining)
+function getDegreeProgress(programmeId, studentCourseCodes, programmeCourses, courses, programmeCreditRequirements) {
+
+    let totalCredits = 0;
+    let completedCourses = [];
+
+    let programmeCreditRequirement = programmeCreditRequirements.find((pcr) => pcr.programmeId === programmeId);
+    // console.log(programmeCreditRequirements);
+    // console.log("programmeID",programmeId);
+    // console.log("programmeCreditRequirement",programmeCreditRequirement);
+
+    let creditRequirements = programmeCreditRequirement.creditRequirements;
+    for (let creditType in creditRequirements) {
+
+        let typeObj = types.find((type) => type.type === creditType);
+        let typeId = typeObj ? typeObj.typeId : null;
+
+        for (let i = 0; i < studentCourseCodes.length; i++) {
+            let course = courses.find((c) => c.courseCode === studentCourseCodes[i]);
+            let programmeCourse = programmeCourses.find((c) => c.courseCode === studentCourseCodes[i] && c.typeId === typeId);
+            if (creditRequirements[creditType] <= 0) {
+                break;
+            }
+            if (programmeCourse && !completedCourses.includes(programmeCourse.courseCode)) {
+                let credits = parseInt(course.credits);
+                completedCourses.push(course.courseCode);
+                creditRequirements[creditType] -= credits;
+                totalCredits = totalCredits + credits;
+            }
+        }
+
+    }
+
+    let remainingRequirements = [];
+    for (let type in creditRequirements) {
+        remainingRequirements.push({ type, remainingCredits: creditRequirements[type] });
+    }
+
+    let degreeProgress = {
+        remainingRequirements: remainingRequirements,
+        completedCourses: completedCourses,
+        totalCompletedCredits: totalCredits,
+        remainingCredits: programmeCreditRequirement.total - totalCredits
+    };
+
+    return degreeProgress;
 }
 
 

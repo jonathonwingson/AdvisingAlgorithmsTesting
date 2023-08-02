@@ -11,7 +11,7 @@ const testGetDegreeProgress = require('../getDegreeProgress.js');
 const testGetRegistrableCourses = require('../getRegistrableCourses.js');
 
 
-describe('Degree Progress Test for TestCase - 1.0.\n  Student completed all required courses.', function () {
+describe('Degree Progress Test and Eligible Courses for TestCase:\n  1.0 - Student completed all required courses.', function () {
 
   const programmeId = 1;
   const file_path = '/workspaces/AdvisingAlgorithmsTesting/TestCase - 1.0.xlsx';
