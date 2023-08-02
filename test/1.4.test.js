@@ -3,7 +3,7 @@
 // Student completed no programme courses
 // all the programme courses are offered in the semester
 
-// run using "npm run progress-test-1.0"
+// run using "npm run test_case_1.4"
 // 
 
 const chai = require('chai');

@@ -2,7 +2,7 @@
 // Degree Progress Test for TestCase - 1.0
 // Student completed all programme courses
 
-// run using "npm run test-case-1.0"
+// run using "npm run test_case_1.0"
 // 
 
 const chai = require('chai');

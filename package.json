@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "mocha test/custom.test.js",
+    "test_custom": "mocha test/custom.test.js",
     
     "test-case-1.0": "mocha test/1.0.test.js",
     "test-case-1.1": "mocha test/1.1.test.js",
